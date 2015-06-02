@@ -5,55 +5,43 @@ main:
 	LDR R0, =$EXIT
 	STR LR, [R0]
 	MOV R12, SP
-	SUB SP, SP, #4
+	SUB SP, SP, #0
 	LDR R0, =$FIN
 	PUSH {R0}
 	BL main_0
 	
 suma_0:
-	MOV R2, #5
-	MOV R0, #1
+	MOV R1, #10
+	SUB R0, SP, #4
+	STR R1, [R0]
 
-	CMP R0, #10
-	BGE $ERROR
-	MOV R1, #4
-	MUL R1, R0, R1
-	ADD R1, R1, #4
-	SUB R1, SP, R1
-	STR R2, [R1]
+	LDR R0 , [SP, #-4]
+	MOV R1, #10
+	CMP R0, R1
+	BEQ IFTRUE1
+	B IFFALSE1
+IFTRUE1:
 	MOV R2, #1
-
-	CMP R2, #10
-	BGE $ERROR
-	MOV R3, #4
-	MUL R3, R2, R3
-	ADD R3, R3, #4
-	LDR R3 , [SP, -R3]
-	MOV R4, #2
-	ADD R5, R3, R4
-	SUB R1, R12, #4
-	STR R5, [R1]
-	LDR R1 , [R12, #-4]
-	PUSH {R1, R0}
-	MOV R1, R1
-	LDR R0, =$int
-	BL printf
-	POP {R1, R0}
-	POP {R5}
+	SUB R0, SP, #8
+	STR R2, [R0]
+	B NEXT2
+IFFALSE1:
+	MOV R2, #2
+	SUB R0, SP, #8
+	STR R2, [R0]
+NEXT2:
+	POP {R0}
 	PUSH {R0}
-	MOV PC, R5
+	MOV PC, R0
 
 main_0:
 	SUB SP, SP, #0
-	LDR R0, =retorno1
+	LDR R0, =retorno1L
 	PUSH {R0}
-	BL suma_0
-retorno1:
-	POP {R5}
 	ADD SP, SP, #0
-	POP {R5}
+	POP {R0}
 	PUSH {R0}
-	MOV PC, R5
+	MOV PC, R0
 $ERROR:
 	PUSH {R0}
 	LDR R0, =$indexoutofbounds
@@ -63,13 +51,15 @@ $ERROR:
 $FIN:
 	MOV R0,#0
 	MOV R3,#0
-	ADD SP, SP, #4
+	ADD SP, SP, #0
 	LDR LR, =$EXIT
+	LDR LR, [LR]
 	BX LR
 
 .DATA
 .ALIGN 2
 	$GLOBAL: .word 0
+	$EXIT: .word 0
 	$int:	.asciz "%d"
 	$char:	.asciz "%c"
 	$vacio:	.asciz " "
