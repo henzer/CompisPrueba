@@ -35,9 +35,14 @@ NEXT2:
 	MOV PC, R0
 
 main_0:
+
 	SUB SP, SP, #0
-	LDR R0, =retorno1L
+
+	LDR R0, =retorno1
 	PUSH {R0}
+	BL suma_0
+retorno1:
+	POP {R0}
 	ADD SP, SP, #0
 	POP {R0}
 	PUSH {R0}
