@@ -33,7 +33,7 @@ $FIN:
 	ADD SP, SP, #0
 	LDMFD SP!,{LR}
 	BX LR
-	
+
 .DATA
 .ALIGN 2
 	$GLOBAL: .word 0
