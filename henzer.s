@@ -18,7 +18,8 @@ suma_0:
 STARTWHILE1:
 	LDR R0 , [SP, #-4]
 	MOV R1, #0
-	CMP R0, GOTO
+	CMP R0, R1
+	BGT WHILETRUE1
 	B NEXT2
 WHILETRUE1:
 	LDR R0 , [SP, #-4]
@@ -43,6 +44,7 @@ NEXT2:
 main_0:
 
 	SUB SP, SP, #0
+
 	LDR R0, =retorno1
 	PUSH {R0}
 	BL suma_0
