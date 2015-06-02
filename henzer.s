@@ -30,9 +30,15 @@ IFFALSE1:
 	SUB R0, SP, #8
 	STR R2, [R0]
 NEXT2:
-	POP {R0}
+	LDR R0 , [SP, #-8]
+	PUSH {R1, R0}
+	MOV R1, R0
+	LDR R0, =$int
+	BL printf
+	POP {R1, R0}
+	POP {R2}
 	PUSH {R0}
-	MOV PC, R0
+	MOV PC, R2
 
 main_0:
 
@@ -42,11 +48,11 @@ main_0:
 	PUSH {R0}
 	BL suma_0
 retorno1:
-	POP {R0}
+	POP {R2}
 	ADD SP, SP, #0
-	POP {R0}
+	POP {R2}
 	PUSH {R0}
-	MOV PC, R0
+	MOV PC, R2
 $ERROR:
 	PUSH {R0}
 	LDR R0, =$indexoutofbounds
