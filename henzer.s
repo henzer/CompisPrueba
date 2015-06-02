@@ -11,9 +11,15 @@ main:
 	BL main_0
 	
 suma_0:
-	POP {R0}
+	LDR R0, [SP, #0]
+	PUSH {R1, R0}
+	MOV R1, R0
+	LDR R0, =$int
+	BL printf
+	POP {R1, R0}
+	POP {R1}
 	PUSH {R0}
-	MOV PC, R0
+	MOV PC, R1
 
 main_0:
 	SUB SP, SP, #0
@@ -21,11 +27,11 @@ main_0:
 	PUSH {R0}
 	BL suma_0
 retorno1:
-	POP {R0}
+	POP {R1}
 	ADD SP, SP, #0
-	POP {R0}
+	POP {R1}
 	PUSH {R0}
-	MOV PC, R0
+	MOV PC, R1
 $FIN:
 	MOV R0,#0
 	MOV R3,#0
