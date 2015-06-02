@@ -11,50 +11,45 @@ main:
 	BL main_0
 	
 suma_0:
-	MOV R1, #10
-	SUB R0, SP, #4
-	STR R1, [R0]
-
-STARTWHILE1:
-	LDR R0 , [SP, #-4]
-	MOV R1, #0
-	CMP R0, R1
-	BGT WHILETRUE1
-	B NEXT2
-WHILETRUE1:
-	LDR R0 , [SP, #-4]
-	MOV R2, #1
-	SUB R3, R0, R2
-	SUB R1, SP, #4
-	STR R3, [R1]
-
 	LDR R1 , [SP, #-4]
-	PUSH {R1, R0}
-	MOV R1, R1
-	LDR R0, =$int
-	BL printf
-	POP {R1, R0}
+	LDR R2 , [SP, #-8]
+	ADD R3, R1, R2
+	SUB R0, SP, #12
+	STR R3, [R0]
 
-	B STARTWHILE1
-NEXT2:
+	LDR R0 , [SP, #-12]
 	POP {R3}
 	PUSH {R0}
 	MOV PC, R3
 
-main_0:
 
-	SUB SP, SP, #0
+main_0:
+	MOV R3, #1
+	MOV R0, #1
+
+	SUB SP, SP, #4
+	STR R3, [SP, #-4] 
+	STR R0, [SP, #-8] 
 
 	LDR R0, =retorno1
 	PUSH {R0}
 	BL suma_0
 retorno1:
-	POP {R3}
-	ADD SP, SP, #0
+	POP {R0}
+	ADD SP, SP, #4
+	SUB R2, SP, #4
+	STR R0, [R2]
 
-	POP {R3}
+	LDR R2 , [SP, #-4]
+	PUSH {R0, R1}
+	MOV R1, R2
+	LDR R0, =$int
+	BL printf
+	POP {R0, R1}
+
+	POP {R0}
 	PUSH {R0}
-	MOV PC, R3
+	MOV PC, R0
 $ERROR:
 	PUSH {R0}
 	LDR R0, =$indexoutofbounds
@@ -73,7 +68,7 @@ $FIN:
 .ALIGN 2
 	$GLOBAL: .word 0
 	$EXIT: .word 0
-	$int:	.asciz "%d"
-	$char:	.asciz "%c"
+	$int:	.asciz "%d\n"
+	$char:	.asciz "%c\n"
 	$vacio:	.asciz " "
-	$indexoutofbounds:	.asciz "Error.-IndexOutOfBoundsException!"
+	$indexoutofbounds:	.asciz "Error.-IndexOutOfBoundsException!\n"
