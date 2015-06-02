@@ -10,12 +10,13 @@ main:
 	BL main_0
 	
 suma_0:
-	MOV R2, #2
+	MOV R2, #5
 	MOV R0, #1
 
 	CMP R0, #10
 	BGE $ERROR
-	MUL R1, R0, 4
+	MOV R1, #4
+	MUL R1, R0, R1
 	ADD R1, R1, #4
 	SUB R1, SP, R1
 	STR R2, [R1]
@@ -23,10 +24,11 @@ suma_0:
 
 	CMP R2, #10
 	BGE $ERROR
-	MUL R3, R2, 4
+	MOV R3, #4
+	MUL R3, R2, R3
 	ADD R3, R3, #4
 	LDR R3 , [SP, -R3]
-	MOV R4, #8
+	MOV R4, #2
 	ADD R5, R3, R4
 	SUB R1, R12, #4
 	STR R5, [R1]
