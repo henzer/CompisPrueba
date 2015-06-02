@@ -11,6 +11,9 @@ main:
 	BL main_0
 	
 suma_0:
+	MOV R1, #10
+	LDR R0, [SP, #0]
+	STR R1, [R0]
 	LDR R0, [SP, #0]
 	PUSH {R1, R0}
 	MOV R1, R0
