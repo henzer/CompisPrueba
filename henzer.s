@@ -10,23 +10,35 @@ main:
 	BL main_0
 	
 suma_0:
-	MOV R1, #10
-	SUB R0, SP, #4
-	STR R1, [R0]
-	LDR R1 ,[SP, #-4]
+	MOV R2, #2
+	MOV R0, #1
+
+	CMP R0, #10
+	BGE $ERROR
+	MUL R1, R0, 4
+	ADD R1, R1, #4
+	SUB R1, SP, R1
+	STR R2, [R1]
 	MOV R2, #1
-	ADD R3, R1, R2
-	SUB R0, R12, #4
-	STR R3, [R0]
-	LDR R0 ,[R12, #-4]
+
+	CMP R2, #10
+	BGE $ERROR
+	MUL R3, R2, 4
+	ADD R3, R3, #4
+	LDR R3 , [SP, -R3]
+	MOV R4, #8
+	ADD R5, R3, R4
+	SUB R1, R12, #4
+	STR R5, [R1]
+	LDR R1 , [R12, #-4]
 	PUSH {R1, R0}
-	MOV R1, R0
+	MOV R1, R1
 	LDR R0, =$int
 	BL printf
 	POP {R1, R0}
-	POP {R3}
+	POP {R5}
 	PUSH {R0}
-	MOV PC, R3
+	MOV PC, R5
 
 main_0:
 	SUB SP, SP, #0
@@ -34,11 +46,17 @@ main_0:
 	PUSH {R0}
 	BL suma_0
 retorno1:
-	POP {R3}
+	POP {R5}
 	ADD SP, SP, #0
-	POP {R3}
+	POP {R5}
 	PUSH {R0}
-	MOV PC, R3
+	MOV PC, R5
+$ERROR:
+	PUSH {R0}
+	LDR R0, =$indexoutofbounds
+	BL printf
+	POP {R0}
+
 $FIN:
 	MOV R0,#0
 	MOV R3,#0
