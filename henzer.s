@@ -2,7 +2,8 @@
 .ALIGN 2
 .GLOBAL main
 main:
-	STMFD SP!,{LR}
+	LDR R0, =$EXIT
+	STR LR, [R0]
 	MOV R12, SP
 	SUB SP, SP, #4
 	LDR R0, =$FIN
@@ -62,9 +63,8 @@ $ERROR:
 $FIN:
 	MOV R0,#0
 	MOV R3,#0
-	POP {R0}
 	ADD SP, SP, #4
-	LDMFD SP!,{LR}
+	LDR LR, =$EXIT
 	BX LR
 
 .DATA
