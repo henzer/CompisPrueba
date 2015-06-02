@@ -12,9 +12,9 @@ main:
 	
 suma_0:
 	MOV R1, #10
-	LDR R0, [SP, #0]
+	LDR R0, [SP, #-4]
 	STR R1, [R0]
-	LDR R0, [SP, #0]
+	LDR R0, [SP, #-4]
 	PUSH {R1, R0}
 	MOV R1, R0
 	LDR R0, =$int
