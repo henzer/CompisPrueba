@@ -100,18 +100,25 @@ retorno3:
 	SUB R1, SP, #4
 	STR R2, [R1]
 
-	LDR R1 , [SP, #-4]
+	LDR R1 , [SP, #-8]
 	PUSH {R0, R1}
 	MOV R1, R1
 	LDR R0, =$int
 	BL printf
 	POP {R0, R1}
 
+	LDR R2 , [SP, #-4]
+	PUSH {R0, R1}
+	MOV R1, R2
+	LDR R0, =$int
+	BL printf
+	POP {R0, R1}
+
 	B STARTWHILE1
 NEXT7:
-	POP {R2}
+	POP {R0}
 	PUSH {R0}
-	MOV PC, R2
+	MOV PC, R0
 $ERROR:
 	PUSH {R0}
 	LDR R0, =$indexoutofbounds
