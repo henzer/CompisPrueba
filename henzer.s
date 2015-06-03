@@ -18,7 +18,7 @@ fib_0:
 	BLT IFTRUE1
 	B IFFALSE1
 IFTRUE1:
-	MOV R1, #1
+	LDR R1 , [SP, #-4]
 	POP {R0}
 	PUSH {R1}
 	MOV PC, R0
@@ -69,7 +69,7 @@ retorno2:
 NEXT1:
 
 main_0:
-	MOV R1, #5
+	MOV R1, #7
 
 	SUB SP, SP, #4
 	LDR R11, =retorno3
