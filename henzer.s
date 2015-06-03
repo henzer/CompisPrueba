@@ -80,38 +80,24 @@ STARTWHILE1:
 	BGT WHILETRUE1
 	B NEXT7
 WHILETRUE1:
-	LDR R0 , [SP, #-8]
-
-	SUB SP, SP, #8
-	LDR R11, =retorno3
-	PUSH {R11}
-	STR R0, [SP, #-4] 
-
-	BL fib_0
-retorno3:
-	POP {R2}
-	ADD SP, SP, #8
-	SUB R1, SP, #4
-	STR R2, [R1]
-
-	LDR R1 , [SP, #-4]
+	LDR R1 , [SP, #-8]
 	PUSH {R0, R1}
 	MOV R1, R1
 	LDR R0, =$int
 	BL printf
 	POP {R0, R1}
 
-	LDR R3 , [SP, #-8]
-	MOV R4, #1
-	SUB R5, R3, R4
-	SUB R2, SP, #8
-	STR R5, [R2]
+	LDR R2 , [SP, #-8]
+	MOV R3, #1
+	SUB R4, R2, R3
+	SUB R0, SP, #8
+	STR R4, [R0]
 
 	B STARTWHILE1
 NEXT7:
-	POP {R2}
+	POP {R0}
 	PUSH {R0}
-	MOV PC, R2
+	MOV PC, R0
 $ERROR:
 	PUSH {R0}
 	LDR R0, =$indexoutofbounds
