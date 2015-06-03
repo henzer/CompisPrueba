@@ -36,17 +36,17 @@ main_0:
 	LDR R0 , [SP, #-8]
 
 	SUB SP, SP, #12
-	LDR R0, =retorno1
-	PUSH {R0}
+	LDR R11, =retorno1
+	PUSH {11}
 	STR R3, [SP, #-4] 
 	STR R0, [SP, #-8] 
 
 	BL suma_0
 retorno1:
-	POP {R0}
+	POP {R1}
 	ADD SP, SP, #12
 	SUB R2, SP, #12
-	STR R0, [R2]
+	STR R1, [R2]
 
 	LDR R2 , [SP, #-12]
 	PUSH {R0, R1}
@@ -55,9 +55,9 @@ retorno1:
 	BL printf
 	POP {R0, R1}
 
-	POP {R0}
+	POP {R1}
 	PUSH {R0}
-	MOV PC, R0
+	MOV PC, R1
 $ERROR:
 	PUSH {R0}
 	LDR R0, =$indexoutofbounds
