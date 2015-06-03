@@ -63,7 +63,6 @@ $ERROR:
 	LDR R0, =$indexoutofbounds
 	BL printf
 	POP {R0}
-
 $FIN:
 	MOV R0,#0
 	MOV R3,#0
