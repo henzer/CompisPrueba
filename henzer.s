@@ -37,7 +37,7 @@ main_0:
 
 	SUB SP, SP, #12
 	LDR R11, =retorno1
-	PUSH {11}
+	PUSH {R11}
 	STR R3, [SP, #-4] 
 	STR R0, [SP, #-8] 
 
