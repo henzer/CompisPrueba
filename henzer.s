@@ -71,7 +71,7 @@ NEXT1:
 main_0:
 	MOV R1, #1
 
-	SUB SP, SP, #4
+	SUB SP, SP, #8
 	LDR R11, =retorno3
 	PUSH {R11}
 	STR R1, [SP, #-4] 
@@ -79,7 +79,7 @@ main_0:
 	BL fib_0
 retorno3:
 	POP {R2}
-	ADD SP, SP, #4
+	ADD SP, SP, #8
 	SUB R0, SP, #4
 	STR R2, [R0]
 
@@ -92,7 +92,7 @@ retorno3:
 
 	MOV R3, #2
 
-	SUB SP, SP, #4
+	SUB SP, SP, #8
 	LDR R11, =retorno4
 	PUSH {R11}
 	STR R3, [SP, #-4] 
@@ -100,7 +100,7 @@ retorno3:
 	BL fib_0
 retorno4:
 	POP {R4}
-	ADD SP, SP, #4
+	ADD SP, SP, #8
 	SUB R2, SP, #4
 	STR R4, [R2]
 
@@ -113,7 +113,7 @@ retorno4:
 
 	MOV R5, #3
 
-	SUB SP, SP, #4
+	SUB SP, SP, #8
 	LDR R11, =retorno5
 	PUSH {R11}
 	STR R5, [SP, #-4] 
@@ -121,7 +121,7 @@ retorno4:
 	BL fib_0
 retorno5:
 	POP {R6}
-	ADD SP, SP, #4
+	ADD SP, SP, #8
 	SUB R4, SP, #4
 	STR R6, [R4]
 
@@ -134,7 +134,7 @@ retorno5:
 
 	MOV R7, #4
 
-	SUB SP, SP, #4
+	SUB SP, SP, #8
 	LDR R11, =retorno6
 	PUSH {R11}
 	STR R7, [SP, #-4] 
@@ -142,7 +142,7 @@ retorno5:
 	BL fib_0
 retorno6:
 	POP {R8}
-	ADD SP, SP, #4
+	ADD SP, SP, #8
 	SUB R6, SP, #4
 	STR R8, [R6]
 
@@ -155,7 +155,7 @@ retorno6:
 
 	MOV R9, #5
 
-	SUB SP, SP, #4
+	SUB SP, SP, #8
 	LDR R11, =retorno7
 	PUSH {R11}
 	STR R9, [SP, #-4] 
@@ -163,7 +163,7 @@ retorno6:
 	BL fib_0
 retorno7:
 	POP {R10}
-	ADD SP, SP, #4
+	ADD SP, SP, #8
 	SUB R8, SP, #4
 	STR R10, [R8]
 
@@ -174,6 +174,32 @@ retorno7:
 	BL printf
 	POP {R0, R1}
 
+	MOV R11, #10
+	SUB R10, SP, #8
+	STR R11, [R10]
+
+STARTWHILE1:
+	LDR R10 , [SP, #-8]
+	MOV R11, #0
+	CMP R10, R11
+	BGT WHILETRUE1
+	B NEXT17
+WHILETRUE1:
+	LDR R11 , [SP, #-8]
+	PUSH {R0, R1}
+	MOV R1, R11
+	LDR R0, =$int
+	BL printf
+	POP {R0, R1}
+
+	LDR R12 , [SP, #-8]
+	MOV R13, #1
+	SUB R14, R12, R13
+	SUB R10, SP, #8
+	STR R14, [R10]
+
+	B STARTWHILE1
+NEXT17:
 	POP {R10}
 	PUSH {R0}
 	MOV PC, R10
