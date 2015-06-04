@@ -84,38 +84,45 @@ STARTWHILE1:
 	BGT WHILETRUE1
 	B NEXT8
 WHILETRUE1:
-	LDR R0 , [SP, #-16]
-
-	SUB SP, SP, #16
-	LDR R11, =retorno3
-	STR R11, [SP, #-4]
-	STR R0, [SP, #-12] 
-
-	BL fib_0
-retorno3:
-	LDR R2, [SP, #-8]
-	ADD SP, SP, #16
-	SUB R1, SP, #12
-	STR R2, [R1]
-
-	LDR R1 , [SP, #-12]
+	LDR R1 , [SP, #-16]
 	PUSH {R0, R1}
 	MOV R1, R1
 	LDR R0, =$int
 	BL printf
 	POP {R0, R1}
 
-	LDR R3 , [SP, #-16]
-	MOV R4, #1
-	SUB R5, R3, R4
-	SUB R2, SP, #16
-	STR R5, [R2]
+	LDR R2 , [SP, #-16]
+
+	SUB SP, SP, #16
+	LDR R11, =retorno3
+	STR R11, [SP, #-4]
+	STR R2, [SP, #-12] 
+
+	BL fib_0
+retorno3:
+	LDR R3, [SP, #-8]
+	ADD SP, SP, #16
+	SUB R0, SP, #12
+	STR R3, [R0]
+
+	LDR R0 , [SP, #-12]
+	PUSH {R0, R1}
+	MOV R1, R0
+	LDR R0, =$int
+	BL printf
+	POP {R0, R1}
+
+	LDR R4 , [SP, #-16]
+	MOV R5, #1
+	SUB R6, R4, R5
+	SUB R3, SP, #16
+	STR R6, [R3]
 
 	B STARTWHILE1
 NEXT8:
-	LDR R2, [ SP , #-4 ]
+	LDR R3, [ SP , #-4 ]
 	STR R0, [SP, #-8]
-	MOV PC, R2
+	MOV PC, R3
 $ERROR:
 	PUSH {R0}
 	LDR R0, =$indexoutofbounds
