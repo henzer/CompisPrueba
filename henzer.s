@@ -5,7 +5,7 @@ main:
 	LDR R0, =$EXIT
 	STR LR, [R0]
 	MOV R12, SP
-	SUB SP, SP, #4
+	SUB SP, SP, #0
 	LDR R0, =$FIN
 	PUSH {R0}
 	BL main_0
@@ -70,21 +70,21 @@ NEXT1:
 
 main_0:
 	MOV R1, #5
-	SUB R0, SP, #12
+	SUB R0, SP, #20
 	STR R1, [R0]
 
 	MOV R1, #10
-	SUB R0, R12, #12
+	SUB R0, SP, #24
 	STR R1, [R0]
 
 STARTWHILE1:
-	LDR R0 , [R12, #-12]
+	LDR R0 , [SP, #-24]
 	MOV R1, #0
 	CMP R0, R1
 	BGT WHILETRUE1
 	B NEXT8
 WHILETRUE1:
-	LDR R1 , [R12, #-12]
+	LDR R1 , [SP, #-24]
 	PUSH {R0, R1}
 	MOV R1, R1
 	LDR R0, =$int
@@ -93,7 +93,7 @@ WHILETRUE1:
 
 	MOV R2, #10
 
-	SUB SP, SP, #12
+	SUB SP, SP, #28
 	LDR R11, =retorno3
 	STR R11, [SP, #-4]
 	STR R2, [SP, #-12] 
@@ -101,21 +101,21 @@ WHILETRUE1:
 	BL fib_0
 retorno3:
 	LDR R3, [SP, #-8]
-	ADD SP, SP, #12
-	SUB R0, SP, #12
+	ADD SP, SP, #28
+	SUB R0, SP, #20
 	STR R3, [R0]
 
-	LDR R0 , [SP, #-12]
+	LDR R0 , [SP, #-20]
 	PUSH {R0, R1}
 	MOV R1, R0
 	LDR R0, =$int
 	BL printf
 	POP {R0, R1}
 
-	LDR R4 , [R12, #-12]
+	LDR R4 , [SP, #-24]
 	MOV R5, #1
 	SUB R6, R4, R5
-	SUB R3, R12, #12
+	SUB R3, SP, #24
 	STR R6, [R3]
 
 	B STARTWHILE1
@@ -132,7 +132,7 @@ $ERROR:
 $FIN:
 	MOV R0,#0
 	MOV R3,#0
-	ADD SP, SP, #4
+	ADD SP, SP, #0
 	LDR LR, =$EXIT
 	LDR LR, [LR]
 	BX LR
