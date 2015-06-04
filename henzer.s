@@ -18,7 +18,7 @@ fib_0:
 	BLT IFTRUE1
 	B IFFALSE1
 IFTRUE1:
-	LDR R1 , [SP, #-12]
+	MOV R1, #1
 	LDR R0, [ SP , #-4 ]
 	STR R1, [SP, #-8]
 	MOV PC, R0
