@@ -91,7 +91,7 @@ WHILETRUE1:
 	BL printf
 	POP {R0, R1}
 
-	LDR R2 , [SP, #-16]
+	MOV R2, #10
 
 	SUB SP, SP, #16
 	LDR R11, =retorno3
