@@ -70,92 +70,94 @@ NEXT1:
 
 main_0:
 	MOV R1, #10
-
-	SUB SP, SP, #4
-	LDR R11, =retorno3
-	PUSH {R11}
-	STR R1, [SP, #-4] 
-
-	BL fib_0
-retorno3:
-	POP {R2}
-	ADD SP, SP, #4
 	SUB R0, SP, #4
-	STR R2, [R0]
+	STR R1, [R0]
 
+	MOV R1, #'a'
+	SUB R0, SP, #8
+	STR R1, [R0]
+
+	MOV R1, #'b'
+	SUB R0, SP, #16
+	STR R1, [R0]
+
+	MOV R1, #'c'
+	SUB R0, SP, #24
+	STR R1, [R0]
+
+STARTWHILE1:
 	LDR R0 , [SP, #-4]
+	MOV R1, #0
+	CMP R0, R1
+	BGT WHILETRUE1
+	B NEXT10
+WHILETRUE1:
+	LDR R1 , [SP, #-4]
 	PUSH {R0, R1}
-	MOV R1, R0
+	MOV R1, R1
 	LDR R0, =$int
 	BL printf
 	POP {R0, R1}
-
-	MOV R3, #9
-
-	SUB SP, SP, #4
-	LDR R11, =retorno4
-	PUSH {R11}
-	STR R3, [SP, #-4] 
-
-	BL fib_0
-retorno4:
-	POP {R4}
-	ADD SP, SP, #4
-	SUB R2, SP, #4
-	STR R4, [R2]
 
 	LDR R2 , [SP, #-4]
+	MOV R3, #1
+	SUB R4, R2, R3
+	SUB R0, SP, #4
+	STR R4, [R0]
+
+
+	LDR R0 , [SP, #-4]
+	MOV R4, #1
+	CMP R0, R4
+	BEQ IFTRUE2
+	B NEXT13
+IFTRUE2:
+	LDR R0 , [SP, #-8]
 	PUSH {R0, R1}
-	MOV R1, R2
-	LDR R0, =$int
+	MOV R1, R0
+	LDR R0, =$char
 	BL printf
 	POP {R0, R1}
 
-	MOV R5, #8
 
-	SUB SP, SP, #4
-	LDR R11, =retorno5
-	PUSH {R11}
-	STR R5, [SP, #-4] 
+NEXT13:
 
-	BL fib_0
-retorno5:
-	POP {R6}
-	ADD SP, SP, #4
-	SUB R4, SP, #4
-	STR R6, [R4]
-
-	LDR R4 , [SP, #-4]
+	LDR R3 , [SP, #-4]
+	MOV R2, #2
+	CMP R3, R2
+	BEQ IFTRUE3
+	B NEXT15
+IFTRUE3:
+	LDR R3 , [SP, #-16]
 	PUSH {R0, R1}
-	MOV R1, R4
-	LDR R0, =$int
+	MOV R1, R3
+	LDR R0, =$char
 	BL printf
 	POP {R0, R1}
 
-	MOV R7, #7
 
-	SUB SP, SP, #4
-	LDR R11, =retorno6
-	PUSH {R11}
-	STR R7, [SP, #-4] 
+NEXT15:
 
-	BL fib_0
-retorno6:
-	POP {R8}
-	ADD SP, SP, #4
-	SUB R6, SP, #4
-	STR R8, [R6]
-
-	LDR R6 , [SP, #-4]
+	LDR R5 , [SP, #-4]
+	MOV R6, #3
+	CMP R5, R6
+	BEQ IFTRUE4
+	B NEXT17
+IFTRUE4:
+	LDR R5 , [SP, #-24]
 	PUSH {R0, R1}
-	MOV R1, R6
-	LDR R0, =$int
+	MOV R1, R5
+	LDR R0, =$char
 	BL printf
 	POP {R0, R1}
 
-	POP {R8}
+
+NEXT17:
+	B STARTWHILE1
+NEXT10:
+	POP {R7}
 	PUSH {R0}
-	MOV PC, R8
+	MOV PC, R7
 $ERROR:
 	PUSH {R0}
 	LDR R0, =$indexoutofbounds
