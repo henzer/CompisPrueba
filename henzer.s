@@ -62,6 +62,12 @@ STARTWHILE1:
 	BEQ WHILETRUE1
 	B NEXT6
 WHILETRUE1:
+	LDR R2 , [SP, #-12]
+	MOV R3, #1
+	ADD R4, R2, R3
+	SUB R0, SP, #12
+	STR R4, [R0]
+
 	LDR R0 , [SP, #-12]
 	PUSH {R0, R1}
 	MOV R1, R0
@@ -78,29 +84,23 @@ WHILETRUE1:
 
 	BL fib_0
 retorno2:
-	LDR R4, [SP, #-8]
+	LDR R2, [SP, #-8]
 	ADD SP, SP, #16
-	SUB R2, SP, #16
-	STR R4, [R2]
+	SUB R4, SP, #16
+	STR R2, [R4]
 
-	LDR R2 , [SP, #-16]
+	LDR R4 , [SP, #-16]
 	PUSH {R0, R1}
-	MOV R1, R2
+	MOV R1, R4
 	LDR R0, =$int
 	BL printf
 	POP {R0, R1}
 
-	LDR R5 , [SP, #-12]
-	MOV R6, #1
-	ADD R7, R5, R6
-	SUB R4, SP, #12
-	STR R7, [R4]
-
 	B STARTWHILE1
 NEXT6:
-	LDR R4, [ SP , #-4 ]
+	LDR R2, [ SP , #-4 ]
 	STR R0, [SP, #-8]
-	MOV PC, R4
+	MOV PC, R2
 $ERROR:
 	PUSH {R0}
 	LDR R0, =$indexoutofbounds
