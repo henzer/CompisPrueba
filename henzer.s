@@ -11,40 +11,13 @@ main:
 	BL main_0
 	
 fib_0:
-
 	LDR R0 , [SP, #-4]
-	MOV R1, #2
-	CMP R0, R1
-	BLT IFTRUE1
-	B IFFALSE1
-IFTRUE1:
-	MOV R1, #1
-	POP {R0}
-	PUSH {R1}
-	MOV PC, R0
-
-
-	B NEXT1
-IFFALSE1:
-	LDR R0 , [SP, #-4]
-	MOV R1, #1
-	SUB R2, R0, R1
-
-	SUB SP, SP, #4
-	LDR R11, =retorno1
-	PUSH {R11}
-	STR R2, [SP, #-4] 
-
-	BL fib_0
-retorno1:
+	MOV R1, #100
+	ADD R2, R0, R1
 	POP {R1}
-	ADD SP, SP, #4
-	POP {R0}
-	PUSH {R1}
-	MOV PC, R0
+	PUSH {R2}
+	MOV PC, R1
 
-
-NEXT1:
 
 main_0:
 	MOV R1, #5
@@ -60,7 +33,7 @@ STARTWHILE1:
 	MOV R1, #10
 	CMP R0, R1
 	BLT WHILETRUE1
-	B NEXT6
+	B NEXT4
 WHILETRUE1:
 	LDR R0 , [SP, #-4]
 	MOV R2, #1
@@ -79,18 +52,18 @@ WHILETRUE1:
 	LDR R3 , [SP, #-4]
 	MOV R2, #5
 	CMP R3, R2
-	BEQ IFTRUE2
-	B NEXT9
-IFTRUE2:
+	BEQ IFTRUE1
+	B NEXT7
+IFTRUE1:
 	LDR R0 , [SP, #-4]
 
 	SUB SP, SP, #8
-	LDR R11, =retorno2
+	LDR R11, =retorno1
 	PUSH {R11}
 	STR R0, [SP, #-4] 
 
 	BL fib_0
-retorno2:
+retorno1:
 	POP {R4}
 	ADD SP, SP, #8
 	SUB R3, SP, #8
@@ -104,9 +77,9 @@ retorno2:
 	POP {R0, R1}
 
 
-NEXT9:
+NEXT7:
 	B STARTWHILE1
-NEXT6:
+NEXT4:
 	POP {R4}
 	PUSH {R0}
 	MOV PC, R4
