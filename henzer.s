@@ -75,19 +75,26 @@ WHILETRUE1:
 	BL printf
 	POP {R0, R1}
 
-	LDR R2 , [SP, #-12]
+
+	LDR R3 , [SP, #-12]
+	MOV R2, #5
+	CMP R3, R2
+	BEQ IFTRUE2
+	B NEXT9
+IFTRUE2:
+	LDR R0 , [SP, #-12]
 
 	SUB SP, SP, #16
 	LDR R11, =retorno2
 	STR R11, [SP, #-4]
-	STR R2, [SP, #-12] 
+	STR R0, [SP, #-12] 
 
 	BL fib_0
 retorno2:
-	LDR R0, [SP, #-8]
+	LDR R4, [SP, #-8]
 	ADD SP, SP, #16
 	SUB R3, SP, #16
-	STR R0, [R3]
+	STR R4, [R3]
 
 	LDR R3 , [SP, #-16]
 	PUSH {R0, R1}
@@ -96,11 +103,13 @@ retorno2:
 	BL printf
 	POP {R0, R1}
 
+
+NEXT9:
 	B STARTWHILE1
 NEXT6:
-	LDR R0, [ SP , #-4 ]
+	LDR R4, [ SP , #-4 ]
 	STR R0, [SP, #-8]
-	MOV PC, R0
+	MOV PC, R4
 $ERROR:
 	PUSH {R0}
 	LDR R0, =$indexoutofbounds
