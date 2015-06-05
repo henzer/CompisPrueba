@@ -10,91 +10,136 @@ main:
 	PUSH {R0}
 	BL main_0
 	
-main_0:
-	MOV R2, #100
-	MOV R0, #0
+factorial_0:
 
-	CMP R0, #3
-	BGE $ERROR
-	MOV R1, #4
-	MUL R1, R0, R1
-	ADD R1, R1, #4
-	SUB R1, SP, R1
-	STR R2, [R1]
-
-	MOV R3, #200
+	LDR R0 , [SP, #-4]
+	MOV R1, #2
+	CMP R0, R1
+	BLT IFTRUE1
+	B IFFALSE1
+IFTRUE1:
 	MOV R1, #1
+	POP {R0}
+	PUSH {R1}
+	MOV PC, R0
 
-	CMP R1, #3
-	BGE $ERROR
-	MOV R2, #4
-	MUL R2, R1, R2
-	ADD R2, R2, #4
-	SUB R2, SP, R2
-	STR R3, [R2]
 
-	MOV R4, #300
-	MOV R2, #2
+	B NEXT1
+IFFALSE1:
+	LDR R1 , [SP, #-4]
+	MOV R2, #1
+	SUB R3, R1, R2
 
-	CMP R2, #3
-	BGE $ERROR
+	SUB SP, SP, #8
+	LDR R11, =retorno1
+	PUSH {R11}
+	STR R3, [SP, #-4] 
+
+	BL factorial_0
+retorno1:
+	POP {R2}
+	ADD SP, SP, #8
+	SUB R0, SP, #8
+	STR R2, [R0]
+
+	LDR R0 , [SP, #-8]
+	LDR R2 , [SP, #-4]
+	MUL R1, R0, R2
+	POP {R2}
+	PUSH {R1}
+	MOV PC, R2
+
+
+NEXT1:
+
+main_0:
+	MOV R1, #5
+
+	SUB SP, SP, #4
+	LDR R11, =retorno2
+	PUSH {R11}
+	STR R1, [SP, #-4] 
+
+	BL factorial_0
+retorno2:
+	POP {R2}
+	ADD SP, SP, #4
+	SUB R0, SP, #4
+	STR R2, [R0]
+
+	LDR R0 , [SP, #-4]
+	PUSH {R0, R1}
+	MOV R1, R0
+	LDR R0, =$int
+	BL printf
+	POP {R0, R1}
+
 	MOV R3, #4
-	MUL R3, R2, R3
-	ADD R3, R3, #4
-	SUB R3, SP, R3
-	STR R4, [R3]
 
-	MOV R3, #0
+	SUB SP, SP, #4
+	LDR R11, =retorno3
+	PUSH {R11}
+	STR R3, [SP, #-4] 
 
-	CMP R3, #3
-	BGE $ERROR
-	MOV R4, #4
-	MUL R4, R3, R4
-	ADD R4, R4, #4
-	LDR R4 , [SP, -R4]
+	BL factorial_0
+retorno3:
+	POP {R4}
+	ADD SP, SP, #4
+	SUB R2, SP, #4
+	STR R4, [R2]
+
+	LDR R2 , [SP, #-4]
+	PUSH {R0, R1}
+	MOV R1, R2
+	LDR R0, =$int
+	BL printf
+	POP {R0, R1}
+
+	MOV R5, #3
+
+	SUB SP, SP, #4
+	LDR R11, =retorno4
+	PUSH {R11}
+	STR R5, [SP, #-4] 
+
+	BL factorial_0
+retorno4:
+	POP {R6}
+	ADD SP, SP, #4
+	SUB R4, SP, #4
+	STR R6, [R4]
+
+	LDR R4 , [SP, #-4]
 	PUSH {R0, R1}
 	MOV R1, R4
 	LDR R0, =$int
 	BL printf
 	POP {R0, R1}
 
-	MOV R7, #0
+	MOV R7, #2
 
-	CMP R7, #3
-	BGE $ERROR
-	MOV R8, #4
-	MUL R8, R7, R8
-	ADD R8, R8, #4
-	LDR R8 , [SP, -R8]
-	MOV R9, #10
-	ADD R10, R8, R9
-	MOV R5, #1
+	SUB SP, SP, #4
+	LDR R11, =retorno5
+	PUSH {R11}
+	STR R7, [SP, #-4] 
 
-	CMP R5, #3
-	BGE $ERROR
-	MOV R6, #4
-	MUL R6, R5, R6
-	ADD R6, R6, #4
-	SUB R6, SP, R6
-	STR R10, [R6]
+	BL factorial_0
+retorno5:
+	POP {R8}
+	ADD SP, SP, #4
+	SUB R6, SP, #4
+	STR R8, [R6]
 
-	MOV R6, #1
-
-	CMP R6, #3
-	BGE $ERROR
-	MOV R10, #4
-	MUL R10, R6, R10
-	ADD R10, R10, #4
-	LDR R10 , [SP, -R10]
+	LDR R6 , [SP, #-4]
 	PUSH {R0, R1}
-	MOV R1, R10
+	MOV R1, R6
 	LDR R0, =$int
 	BL printf
 	POP {R0, R1}
 
-	POP {R9}
+	POP {R8}
 	PUSH {R0}
-	MOV PC, R9
+	MOV PC, R8
 $ERROR:
 	PUSH {R0}
 	LDR R0, =$indexoutofbounds
