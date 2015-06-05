@@ -58,23 +58,43 @@ main_0:
 	BL printf
 	POP {R0, R1}
 
-	MOV R5, #4
+	MOV R7, #0
+
+	CMP R7, #3
+	BGE $ERROR
+	MOV R8, #4
+	MUL R8, R7, R8
+	ADD R8, R8, #4
+	LDR R8 , [SP, -R8]
+	MOV R9, #10
+	ADD R10, R8, R9
+	MOV R5, #1
 
 	CMP R5, #3
 	BGE $ERROR
 	MOV R6, #4
 	MUL R6, R5, R6
 	ADD R6, R6, #4
-	LDR R6 , [SP, -R6]
+	SUB R6, SP, R6
+	STR R10, [R6]
+
+	MOV R6, #1
+
+	CMP R6, #3
+	BGE $ERROR
+	MOV R10, #4
+	MUL R10, R6, R10
+	ADD R10, R10, #4
+	LDR R10 , [SP, -R10]
 	PUSH {R0, R1}
-	MOV R1, R6
+	MOV R1, R10
 	LDR R0, =$int
 	BL printf
 	POP {R0, R1}
 
-	POP {R7}
+	POP {R9}
 	PUSH {R0}
-	MOV PC, R7
+	MOV PC, R9
 $ERROR:
 	PUSH {R0}
 	LDR R0, =$indexoutofbounds
