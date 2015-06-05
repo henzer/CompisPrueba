@@ -38,71 +38,77 @@ mult_0:
 
 
 main_0:
-	MOV R1, #100
-	MOV R2, #50
+	MOV R2, #100
+	MOV R0, #0
 
-	SUB SP, SP, #4
-	LDR R11, =retorno1
-	PUSH {R11}
-	STR R1, [SP, #-4] 
-	STR R2, [SP, #-8] 
+	CMP R0, #3
+	BGE $ERROR
+	MOV R1, #4
+	MUL R1, R0, R1
+	ADD R1, R1, #4
+	SUB R1, SP, R1
+	STR R2, [R1]
 
-	BL suma_0
-retorno1:
-	POP {R3}
-	ADD SP, SP, #4
-	SUB R0, SP, #4
-	STR R3, [R0]
+	MOV R3, #200
+	MOV R1, #1
 
-	LDR R0 , [SP, #-4]
+	CMP R1, #3
+	BGE $ERROR
+	MOV R2, #4
+	MUL R2, R1, R2
+	ADD R2, R2, #4
+	SUB R2, SP, R2
+	STR R3, [R2]
+
+	MOV R4, #300
+	MOV R2, #2
+
+	CMP R2, #3
+	BGE $ERROR
+	MOV R3, #4
+	MUL R3, R2, R3
+	ADD R3, R3, #4
+	SUB R3, SP, R3
+	STR R4, [R3]
+
+	MOV R3, #0
+
+	CMP R3, #3
+	BGE $ERROR
+	MOV R4, #4
+	MUL R4, R3, R4
+	ADD R4, R4, #4
+	LDR R4 , [SP, -R4]
 	PUSH {R0, R1}
-	MOV R1, R0
+	MOV R1, R4
 	LDR R0, =$int
 	BL printf
 	POP {R0, R1}
 
-	MOV R4, #100
-	MOV R5, #50
+	MOV R5, #1
 
-	SUB SP, SP, #4
-	LDR R11, =retorno2
-	PUSH {R11}
-	STR R4, [SP, #-4] 
-	STR R5, [SP, #-8] 
-
-	BL restar_0
-retorno2:
-	POP {R6}
-	ADD SP, SP, #4
-	SUB R3, SP, #4
-	STR R6, [R3]
-
-	LDR R3 , [SP, #-4]
-	PUSH {R0, R1}
-	MOV R1, R3
-	LDR R0, =$int
-	BL printf
-	POP {R0, R1}
-
-	MOV R7, #5
-	MOV R8, #50
-
-	SUB SP, SP, #4
-	LDR R11, =retorno3
-	PUSH {R11}
-	STR R7, [SP, #-4] 
-	STR R8, [SP, #-8] 
-
-	BL mult_0
-retorno3:
-	POP {R9}
-	ADD SP, SP, #4
-	SUB R6, SP, #4
-	STR R9, [R6]
-
-	LDR R6 , [SP, #-4]
+	CMP R5, #3
+	BGE $ERROR
+	MOV R6, #4
+	MUL R6, R5, R6
+	ADD R6, R6, #4
+	LDR R6 , [SP, -R6]
 	PUSH {R0, R1}
 	MOV R1, R6
+	LDR R0, =$int
+	BL printf
+	POP {R0, R1}
+
+	MOV R7, #2
+
+	CMP R7, #3
+	BGE $ERROR
+	MOV R8, #4
+	MUL R8, R7, R8
+	ADD R8, R8, #4
+	LDR R8 , [SP, -R8]
+	PUSH {R0, R1}
+	MOV R1, R8
 	LDR R0, =$int
 	BL printf
 	POP {R0, R1}
