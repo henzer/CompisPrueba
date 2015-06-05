@@ -26,44 +26,22 @@ IFTRUE1:
 
 	B NEXT1
 IFFALSE1:
-	LDR R1 , [SP, #-12]
-	MOV R2, #1
-	SUB R3, R1, R2
+	LDR R0 , [SP, #-12]
+	MOV R1, #1
+	SUB R2, R0, R1
 
-	SUB SP, SP, #20
+	SUB SP, SP, #12
 	LDR R11, =retorno1
 	STR R11, [SP, #-4]
-	STR R3, [SP, #-12] 
+	STR R2, [SP, #-12] 
 
 	BL fib_0
 retorno1:
-	LDR R2, [SP, #-8]
-	ADD SP, SP, #20
-	SUB R0, SP, #16
-	STR R2, [R0]
-
-	LDR R2 , [SP, #-12]
-	MOV R1, #2
-	SUB R4, R2, R1
-
-	SUB SP, SP, #20
-	LDR R11, =retorno2
-	STR R11, [SP, #-4]
-	STR R4, [SP, #-12] 
-
-	BL fib_0
-retorno2:
 	LDR R1, [SP, #-8]
-	ADD SP, SP, #20
-	SUB R0, SP, #20
-	STR R1, [R0]
-
-	LDR R0 , [SP, #-16]
-	LDR R1 , [SP, #-20]
-	ADD R2, R0, R1
-	LDR R1, [ SP , #-4 ]
-	STR R2, [SP, #-8]
-	MOV PC, R1
+	ADD SP, SP, #12
+	LDR R0, [ SP , #-4 ]
+	STR R1, [SP, #-8]
+	MOV PC, R0
 
 
 NEXT1:
@@ -82,7 +60,7 @@ STARTWHILE1:
 	MOV R1, #10
 	CMP R0, R1
 	BEQ WHILETRUE1
-	B NEXT8
+	B NEXT6
 WHILETRUE1:
 	LDR R0 , [SP, #-12]
 	PUSH {R0, R1}
@@ -91,15 +69,15 @@ WHILETRUE1:
 	BL printf
 	POP {R0, R1}
 
-	MOV R3, #10
+	LDR R3 , [SP, #-12]
 
 	SUB SP, SP, #16
-	LDR R11, =retorno3
+	LDR R11, =retorno2
 	STR R11, [SP, #-4]
 	STR R3, [SP, #-12] 
 
 	BL fib_0
-retorno3:
+retorno2:
 	LDR R4, [SP, #-8]
 	ADD SP, SP, #16
 	SUB R2, SP, #16
@@ -119,7 +97,7 @@ retorno3:
 	STR R7, [R4]
 
 	B STARTWHILE1
-NEXT8:
+NEXT6:
 	LDR R4, [ SP , #-4 ]
 	STR R0, [SP, #-8]
 	MOV PC, R4
