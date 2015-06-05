@@ -73,16 +73,12 @@ main_0:
 	SUB R0, SP, #4
 	STR R1, [R0]
 
-	MOV R1, #'a'
-	SUB R0, SP, #8
-	STR R1, [R0]
-
 STARTWHILE1:
 	LDR R0 , [SP, #-4]
 	MOV R1, #0
 	CMP R0, R1
 	BGT WHILETRUE1
-	B NEXT8
+	B NEXT7
 WHILETRUE1:
 	LDR R1 , [SP, #-4]
 	PUSH {R0, R1}
@@ -97,27 +93,11 @@ WHILETRUE1:
 	SUB R0, SP, #4
 	STR R4, [R0]
 
-
-	LDR R0 , [SP, #-4]
-	MOV R4, #1
-	CMP R0, R4
-	BEQ IFTRUE2
-	B NEXT11
-IFTRUE2:
-	LDR R0 , [SP, #-8]
-	PUSH {R0, R1}
-	MOV R1, R0
-	LDR R0, =$char
-	BL printf
-	POP {R0, R1}
-
-
-NEXT11:
 	B STARTWHILE1
-NEXT8:
-	POP {R3}
+NEXT7:
+	POP {R0}
 	PUSH {R0}
-	MOV PC, R3
+	MOV PC, R0
 $ERROR:
 	PUSH {R0}
 	LDR R0, =$indexoutofbounds
