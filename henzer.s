@@ -10,33 +10,6 @@ main:
 	PUSH {R0}
 	BL main_0
 	
-suma_0:
-	LDR R0 , [SP, #-4]
-	LDR R1 , [SP, #-8]
-	ADD R2, R0, R1
-	POP {R1}
-	PUSH {R2}
-	MOV PC, R1
-
-
-restar_0:
-	LDR R0 , [SP, #-4]
-	LDR R1 , [SP, #-8]
-	SUB R2, R0, R1
-	POP {R1}
-	PUSH {R2}
-	MOV PC, R1
-
-
-mult_0:
-	LDR R0 , [SP, #-4]
-	LDR R1 , [SP, #-8]
-	MUL R2, R0, R1
-	POP {R1}
-	PUSH {R2}
-	MOV PC, R1
-
-
 main_0:
 	MOV R2, #100
 	MOV R0, #0
@@ -85,7 +58,7 @@ main_0:
 	BL printf
 	POP {R0, R1}
 
-	MOV R5, #1
+	MOV R5, #4
 
 	CMP R5, #3
 	BGE $ERROR
@@ -99,23 +72,9 @@ main_0:
 	BL printf
 	POP {R0, R1}
 
-	MOV R7, #2
-
-	CMP R7, #3
-	BGE $ERROR
-	MOV R8, #4
-	MUL R8, R7, R8
-	ADD R8, R8, #4
-	LDR R8 , [SP, -R8]
-	PUSH {R0, R1}
-	MOV R1, R8
-	LDR R0, =$int
-	BL printf
-	POP {R0, R1}
-
-	POP {R9}
+	POP {R7}
 	PUSH {R0}
-	MOV PC, R9
+	MOV PC, R7
 $ERROR:
 	PUSH {R0}
 	LDR R0, =$indexoutofbounds
